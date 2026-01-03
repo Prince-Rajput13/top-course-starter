@@ -7,9 +7,11 @@ import { filterData, apiUrl } from "./data";
 import Spinner from "./components/Spinner";
 import { toast } from "react-toastify";
 const App = () => {
+  const [category, setcategory]=useState(filterData[0].title);
   const [courses,setcourses]=useState(null);
   const [loading, setloading] = useState(true);
   async function fetchData(){
+  
     setloading(true);
     try {
       let res= await fetch(apiUrl);
@@ -32,11 +34,11 @@ const App = () => {
         <Navbar/>
       </div>
       <div className="bgDark2">
-        <Filter filterData ={filterData}/>
+        <Filter filterData ={filterData} category={category} setcategory={setcategory}/>
       </div>
       <div className="w-11/12 max-w-[1200px] mx-auto flex flex-wrap justify-center items-center min-h-[50vh]">
         {
-          loading ? (<Spinner/>) : (<Cards courses={courses}/>)
+          loading ? (<Spinner/>) : (<Cards courses={courses} category={category}/>)
         }
       </div>
     </div>
